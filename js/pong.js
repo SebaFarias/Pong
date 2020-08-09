@@ -1,8 +1,9 @@
 var ballsNumber = 5
-var balls = []
-var view = new View()
 var initialized = false;
 var pause = true;
+var balls = []
+initialize()
+
 setInterval(() => { 
     if(!pause){
         advance()
@@ -14,7 +15,7 @@ const generateBalls = () => {
     }
 }
 const advance = () => {
-    view.redraw(balls)
+    redraw(balls)
     balls.forEach(ball => ball.move(balls))
 }
 const start = () => {
