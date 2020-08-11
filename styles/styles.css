@@ -1,15 +1,34 @@
-html , body{
+/* Color Theme Swatches in Hex */
+.color-theme_123-1-hex { color: #4D4D4D; }
+.color-theme_123-2-hex { color: #D9D9D9; }
+.color-theme_123-3-hex { color: #8C8C8C; }
+.color-theme_123-4-hex { color: #999999; }
+.color-theme_123-5-hex { color: #737373; }
+
+/* Color Theme Swatches in RGBA */
+.color-theme_123-1-rgba { color: rgba(77, 77, 77, 1); }
+.color-theme_123-2-rgba { color: rgba(217, 217, 217, 1); }
+.color-theme_123-3-rgba { color: rgba(140, 140, 140, 1); }
+.color-theme_123-4-rgba { color: rgba(153, 153, 153, 1); }
+.color-theme_123-5-rgba { color: rgba(115, 115, 115, 1); }
+
+/* Color Theme Swatches in HSLA */
+.color-theme_123-1-hsla { color: hsla(0, 0, 30, 1); }
+.color-theme_123-2-hsla { color: hsla(0, 0, 85, 1); }
+.color-theme_123-3-hsla { color: hsla(0, 0, 54, 1); }
+.color-theme_123-4-hsla { color: hsla(0, 0, 60, 1); }
+.color-theme_123-5-hsla { color: hsla(0, 0, 45, 1); }
+
+body{
     margin: 0;
     padding: 0;
     border:0;
+    background-color: black;
     overflow: hidden;
     display: block;
 }
-.screen{
-    width: 100vw;
-    height: 100vh;
-}
 .pongTable{
+    z-index: -1;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -19,4 +38,223 @@ html , body{
 .HUD{
     position: absolute;
     top: 10px
+}
+#menu{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0px 2px white;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+#menu a{
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    background-color:#737373;
+}
+#menu a:hover{
+    background-color: #D9D9D9;
+}
+[data-enabled="0"]{
+    background-color: #262626 !important;
+}
+[data-enabled="0"]:hover{
+    background-color:  #262626 !important;
+}
+.title-container{
+    max-height: 40vh;
+}
+#title{    
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+#main-menu{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#main-menu a{
+    min-width: 180px;
+    max-width: 260px;
+    width: 50%;
+    margin: 1em;
+    padding: 1em 0em;
+    border-radius: 0.5em;
+}
+#config-menu{
+    height: 50vh;
+    display: none;
+    grid-template-columns: 10% 0.5fr 1fr 1fr 0.5fr 10%;
+    grid-template-rows: 1.5fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1em;
+}
+.players-config{
+    align-self: center;    
+    background-color: #737373;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    grid-column: 3/5; 
+    padding: 1em;
+    border-radius: 1em;
+    grid-column: 3/5;
+}
+.players-config a{
+    padding: 5px;
+    border-radius: 5px;
+}
+.players-config select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;    
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0px 2px white;
+    background-color: #737373;
+    border: none;
+}
+.main-config{
+    justify-self: center;
+    align-self: center;
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    grid-auto-flow: column;
+    grid-column: 3/5;    
+    justify-content: center;
+    align-items: center;
+    background-color: #737373;
+    padding: 1em;
+    border-radius: 1em;
+}
+.main-config a{
+    padding: 5px;
+    border-radius: 5px;
+}
+.main-config div{
+    justify-self: center;
+    align-self: center;
+}
+.main-config label{
+    text-align: center;
+}
+#back{
+    padding: 1.5em;
+    border-radius: 1em;
+    grid-column: 3/4;
+    grid-row: 3/4;
+    justify-self: center;
+    align-self: flex-end;
+}
+#start{    
+    padding: 1.5em;
+    border-radius: 1em;
+    justify-self: center;
+    align-self: flex-end;
+    grid-column: 4/5;
+}
+
+
+/*Animated Intro*/
+#message{
+    display: none;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,35vh);
+    animation: blinking 1.5s infinite;
+}
+#logo{
+    width: 90%;
+    height: auto;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+#logo path:nth-child(25){/*P*/
+    stroke-dasharray: 675;
+    stroke-dashoffset: 675;
+    animation: line-anim 6s ease forwards;
+}
+#logo path:nth-child(26){/*O*/
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: line-anim 6s ease forwards 1s;
+}
+#logo path:nth-child(27){/*N*/
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: line-anim 6s ease forwards 1s;
+}
+#logo path:nth-child(28){/*G*/
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: line-anim 8s ease forwards;    
+}
+#logo path:nth-child(11){/*C*/
+    stroke-dasharray: 138;
+    stroke-dashoffset: 138;
+    animation: line-anim 2s ease forwards 2s;
+}
+#logo path:nth-child(12){/*H*/
+    stroke-dasharray: 77;
+    stroke-dashoffset: 77;
+    animation: line-anim 2s ease forwards 2s;
+}
+#logo path:nth-child(13){/*A*/
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+    animation: line-anim 2s ease forwards 2s;
+}
+#logo path:nth-child(14){/*L*/
+    stroke-dasharray: 148;
+    stroke-dashoffset: 148;
+    animation: line-anim 2s ease forwards 2s;
+}
+#logo path:nth-child(15){/*L*/
+    stroke-dasharray: 148;
+    stroke-dashoffset: 148;
+    animation: line-anim 4s ease forwards 2s ;  
+}
+#logo path:nth-child(16){/*E*/
+    stroke-dasharray: 144;
+    stroke-dashoffset: 144;
+    animation: line-anim 4s ease forwards 2s;
+}
+#logo path:nth-child(17){/*N*/
+    stroke-dasharray: 148;
+    stroke-dashoffset: 148;
+    animation: line-anim 4s ease forwards 2s;
+}
+#logo path:nth-child(18){/*G*/
+    stroke-dasharray: 157;
+    stroke-dashoffset: 157;
+    animation: line-anim 4s ease forwards 2s;
+}
+#logo path:nth-child(19){/*E*/
+    stroke-dasharray: 144;
+    stroke-dashoffset: 144;
+    animation: line-anim 4s ease forwards 2s;
+}
+@keyframes line-anim{
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes blinking{
+    70%{
+        opacity: 0;
+    }
 }

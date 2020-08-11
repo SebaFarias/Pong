@@ -1,56 +1,67 @@
-const RADIUS = 10;
 class Ball {
-    constructor() {        
-        this.radius = RADIUS;
-        this.posX = 50;
-        this.posY = Math.random() * 100;
-        this.velX = Math.random() < 0.5 ? 1 + Math.random() * 2 : -1 + Math.random() * -2;
-        this.velY = Math.random() < 0.5 ? Math.random() * 3 : Math.random() * -3;
+    constructor(_id,_posX,_posY,_velX,_velY,radius) {        
+        this.radius = radius;
+        this.posX = _posX >= 0? _posX : 50;
+        this.posY = _posY >= 0? _posY : Math.random() * 100 ;
+        this.velX = _velX < 100? _velX : Math.random() < 0.5 ? 1 + Math.random() * 1 : -1 + Math.random() * -1;
+        this.velY = _velY < 100? _velY : Math.random() < 0.5 ? Math.random() * 2 : Math.random() * -2;
+        this.id = _id;
     }
-    displace(valueX,valueY){
+    reset(_posX,_posY,_velX,_velY){
+        this.posX = _posX >= 0? _posX : 50;
+        this.posY = _posY >= 0? _posY : Math.random() * 100 ;
+        this.velX = _velX < 100? _velX : Math.random() < 0.5 ? 1 + Math.random() * 2 : -1 + Math.random() * -2;
+        this.velY = _velY < 100? _velY : Math.random() < 0.5 ? Math.random() * 3 : Math.random() * -3;
+    }     
+    move(valueX,valueY){
         this.posX += valueX
         this.posY += valueY
     }
-    addVelocity(valueX,valueY){
+    accelerate(valueX,valueY){
         this.velX += valueX
         this.velY += valueY
     }   
     isOnMySpace(otherBall){
+        if(this.id == otherBall.id)return false
         var deltaX = otherBall.posX - this.posX
         var deltaY = otherBall.posY - this.posY
-        var distance = Math.sqrt((deltaX*deltaX)+(deltaY*deltaY))
-        return (distance <= 0.5*RADIUS)
+        var distance = Math.sqrt(Math.pow(deltaX,2)+Math.pow(deltaY,2))
+        return (distance < 2*this.radius) 
     }
     backOff(otherBall){
         var deltaX = otherBall.posX - this.posX
         var deltaY = otherBall.posY - this.posY
-        if(this.isOnMySpace(otherBall)){this.displace(deltaX >=0 ? -0.5 : 0.5 , 0)}
-        if(this.isOnMySpace(otherBall)){this.displace(0 , deltaY >=0 ? -0.5 : 0.5)}
-        if(this.isOnMySpace(otherBall)){otherBall.displace(deltaX >=0 ? 0.5 : -0.5 , 0)}
-        if(this.isOnMySpace(otherBall)){otherBall.displace(0 , deltaY >=0 ? 0.5 : -0.5)}
+        if(this.isOnMySpace(otherBall)){this.move(0 , this.velY >=0 ? 0.5 : -0.5)}else{return}
+        if(this.isOnMySpace(otherBall)){this.move(this.velX >=0 ? 0.5 : -0.5 , 0)}else{return}
+        if(this.isOnMySpace(otherBall)){this.move(0 , this.velY >=0 ? 0.5 : -0.5)}else{return}
+        if(this.isOnMySpace(otherBall)){otherBall.move(otherBall.velX >=0 ? 0.5 : -0.5 , 0)}else{return}
+        if(this.isOnMySpace(otherBall)){otherBall.move(0 , otherBall.velY >=0 ? 0.5 : -0.5)}else{return}                
+        if(deltaX==0){this.move(this.velX >=0 ? this.radius : -1*this.radius , 0)}else{return}
+        if(deltaY==0){this.move(this.velY >=0 ? this.radius : -1*this.radius , 0)}else{return}
         if(this.isOnMySpace(otherBall)){this.backOff(otherBall)}
     }
-    courtColide() {
-        if(this.posX <= 0){this.velX = Math.sqrt(this.velX*this.velX)}
-        if(this.posX >= 100){this.velX = Math.sqrt(this.velX*this.velX) * -1}
-        if(this.posY <= 0){this.velY = Math.sqrt(this.velY*this.velY)} 
-        if(this.posY >= 100){this.velY = Math.sqrt(this.velY*this.velY) * -1}
+    bounceAround() {
+        if(this.posX <= 0 || this.posX >= 100){
+            this.velX = Math.abs(this.velX) * (this.posX < 1 ? 1 : -1)
+        }
+        if(this.posY <= 0 || this.posY >= 100){
+            this.velY = Math.abs(this.velY) * (this.posY < 1 ? 1 : -1)
+        } 
     }
     otherBallsColide(balls) {
         balls.forEach(ball => {
-            if(this.isOnMySpace(ball) && !Object.is(ball,this)){ 
+            if(ball.id !== this.id && this.isOnMySpace(ball)){ 
                 var deltaVX = ball.velX - this.velX
                 var deltaVY = ball.velY - this.velY
-                this.addVelocity(deltaVX,deltaVY)
-                ball.addVelocity(deltaVX*-1,deltaVY*-1)
+                this.accelerate(deltaVX,deltaVY)
+                ball.accelerate(deltaVX*-1,deltaVY*-1)
                 this.backOff(ball)       
             }
         });
     }
-    move(balls) {
-        this.courtColide()
+    update(balls) {
+        this.bounceAround()
         this.otherBallsColide(balls)
-        this.posX = this.posX + this.velX
-        this.posY = this.posY + this.velY
+        this.move(this.velX,this.velY)
     }
 }

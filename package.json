@@ -1,0 +1,19 @@
+{
+  "name": "pong",
+  "version": "1.0.0",
+  "description": "Espacio para echar a volar la imaginación, probar cosas nuevas y desarrollar habilidades",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebaFarias/Pong.git"
+  },
+  "author": "Sebastian Farias B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SebaFarias/Pong/issues"
+  },
+  "homepage": "https://github.com/SebaFarias/Pong#readme"
+}
