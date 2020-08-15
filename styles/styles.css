@@ -35,34 +35,52 @@ body{
     width:100%;
     height: 100%;
 }
-.HUD{
-    position: absolute;
-    top: 10px
-}
 #menu{
     position: relative;
     width: 100%;
     min-height: 100vh;
     font-family: 'Press Start 2P', cursive;
     text-shadow: 0px 2px white;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none;
 }
-#menu a{
+.scoreboard{
+    position: absolute;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    margin: 2rem;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    
+}
+.hidden{
+    position: absolute;
+    top: -99;
+    opacity: 0 !important;
+    pointer-events: none;
+}
+.btn{
     color: black;
     text-decoration: none;
     text-align: center;
     background-color:#737373;
 }
-#menu a:hover{
+.btn:hover{
     background-color: #D9D9D9;
 }
-[data-enabled="0"]{
+.disabled-btn{
     background-color: #262626 !important;
 }
-[data-enabled="0"]:hover{
+.disabled-btn:hover{
     background-color:  #262626 !important;
 }
 .title-container{
@@ -80,7 +98,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-#main-menu a{
+.main-menu-btn{
     min-width: 180px;
     max-width: 260px;
     width: 50%;
@@ -90,7 +108,7 @@ body{
 }
 #config-menu{
     height: 50vh;
-    display: none;
+    display: grid;
     grid-template-columns: 10% 0.5fr 1fr 1fr 0.5fr 10%;
     grid-template-rows: 1.5fr 1fr 1fr;
     justify-content: center;
@@ -107,10 +125,6 @@ body{
     padding: 1em;
     border-radius: 1em;
     grid-column: 3/5;
-}
-.players-config a{
-    padding: 5px;
-    border-radius: 5px;
 }
 .players-config select{
     -webkit-appearance: none;
@@ -134,9 +148,9 @@ body{
     padding: 1em;
     border-radius: 1em;
 }
-.main-config a{
+.main-config a,.players-config a{
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 5px;   
 }
 .main-config div{
     justify-self: center;
@@ -160,8 +174,6 @@ body{
     align-self: flex-end;
     grid-column: 4/5;
 }
-
-
 /*Animated Intro*/
 #message{
     display: none;
@@ -172,6 +184,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,35vh);
+    transition: all 0.5s ease;
     animation: blinking 1.5s infinite;
 }
 #logo{
@@ -182,6 +195,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    transition: all 0.3s ease;
 }
 #logo path:nth-child(25){/*P*/
     stroke-dasharray: 675;

@@ -1,83 +1,143 @@
-const menu = {
-    itself: document.querySelector("#menu"),    
+const INDEX = {
+    menu: 0,    
     mainMenu:{
-        itself: document.querySelector("#main-menu"),        
-        continue: document.querySelector('#continue'),
-        restart:document.querySelector('#restart'),
-        highscores:document.querySelector('#highscores'),
-        participate:document.querySelector('#participate')
+        itself: 1,        
+        continue: 2,
+        restart:3,
+        highscores:4,
+        participate:5
     },  
     configMenu:{
-        itself: document.querySelector("#config-menu"),       
-        backButton: document.querySelector("#back"),
-        p1: document.querySelector("#p1"),
-        p1BotSelector: document.querySelector("#player1-selector"),
-        p2: document.querySelector("#p2"),
-        p2BotSelector: document.querySelector("#player2-selector"),
-        lessBalls: document.querySelector("#lessBalls"),
-        balls: document.querySelector("#ballsQuantity"),
-        moreBalls: document.querySelector("#moreBalls"),
-        lessPoints: document.querySelector("#lessPoints"),
-        winningPoints: document.querySelector("#winningPoints"),
-        morePoints: document.querySelector("#morePoints"),
-        startButton: document.querySelector("#start")  
+        itself: 6,       
+        backButton: 7,
+        p1: 8,
+        p1BotSelector: 9,
+        p2: 10,
+        p2BotSelector: 11,
+        lessBalls: 12,
+        balls: 13,
+        moreBalls: 14,
+        lessPoints: 15,
+        winningPoints: 16,
+        morePoints: 17,
+        startButton: 18  
     }
 }
-const configurationMenu = () => {
-    onMenu = true 
-    menu.mainMenu.itself.style.display = 'none'
-    menu.configMenu.itself.style.display = 'grid'
+const MENU = [
+    document.querySelector("#menu"),
+    document.querySelector("#main-menu"),
+    document.querySelector('#continue'),
+    document.querySelector('#restart'),
+    document.querySelector('#highscores'),
+    document.querySelector('#participate'),
+    document.querySelector("#config-menu"),
+    document.querySelector("#back"),
+    document.querySelector("#p1"),
+    document.querySelector("#player1-selector"),
+    document.querySelector("#p2"),
+    document.querySelector("#player2-selector"),
+    document.querySelector("#lessBalls"),
+    document.querySelector("#ballsQuantity"),
+    document.querySelector("#moreBalls"),
+    document.querySelector("#lessPoints"),
+    document.querySelector("#winningPoints"),
+    document.querySelector("#morePoints"),
+    document.querySelector("#start") 
+]
 
-}
-const modifyValue = (event)=>{
-    switch(event.target){
-    case menu.configMenu.lessBalls :
-        if(eval(menu.configMenu.balls.innerHTML)>1)menu.configMenu.balls.innerHTML = (eval(menu.configMenu.balls.innerHTML-1)).toString()
-        if(eval(menu.configMenu.balls.innerHTML) == 1 ) menu.configMenu.lessBalls.setAttribute("data-enabled",0)
-        if(eval(menu.configMenu.balls.innerHTML) == 99 ) menu.configMenu.moreBalls.setAttribute("data-enabled",1)
-        break
-    case menu.configMenu.moreBalls :
-        if(eval(menu.configMenu.balls.innerHTML)<100)menu.configMenu.balls.innerHTML = (eval(menu.configMenu.balls.innerHTML) + 1).toString()
-        if(eval(menu.configMenu.balls.innerHTML) == 100 ) menu.configMenu.moreBalls.setAttribute("data-enabled",0)
-        if(eval(menu.configMenu.balls.innerHTML) == 2 ) menu.configMenu.lessBalls.setAttribute("data-enabled",1)
-        break
-    case menu.configMenu.lessPoints :
-        if(eval(menu.configMenu.winningPoints.innerHTML)>1)menu.configMenu.winningPoints.innerHTML = (eval(menu.configMenu.winningPoints.innerHTML) - 1).toString()
-        if(eval(menu.configMenu.winningPoints.innerHTML) == 1 ) menu.configMenu.lessPoints.setAttribute("data-enabled",0)
-        if(eval(menu.configMenu.winningPoints.innerHTML) == 99 ) menu.configMenu.morePoints.setAttribute("data-enabled",1)
-        break
-    case menu.configMenu.morePoints :
-        if(eval(menu.configMenu.winningPoints.innerHTML)<100)menu.configMenu.winningPoints.innerHTML = (eval(menu.configMenu.winningPoints.innerHTML) + 1).toString()
-        if(eval(menu.configMenu.winningPoints.innerHTML) == 100 ) menu.configMenu.morePoints.setAttribute("data-enabled",0)
-        if(eval(menu.configMenu.winningPoints.innerHTML) == 2 ) menu.configMenu.lessPoints.setAttribute("data-enabled",1)
-        break
+
+MENU[INDEX.menu].addEventListener('click',(event)=>{handleMenuClicks(event);})
+
+function handleMenuClicks(event){
+    let btn = event.target
+    switch(btn){
+        case MENU[INDEX.mainMenu.continue]:
+            continueMatch()
+            break
+        case MENU[INDEX.mainMenu.restart]:
+            configurationMenu()
+            break
+        case MENU[INDEX.configMenu.backButton]:
+            mainMenu()
+            break
+        case MENU[INDEX.configMenu.lessBalls]:
+        case MENU[INDEX.configMenu.moreBalls]:
+        case MENU[INDEX.configMenu.lessPoints]:
+        case MENU[INDEX.configMenu.morePoints]:
+            handleChangeBtn(btn)
+            break
+        case MENU[INDEX.configMenu.startButton]:
+            beginMatch()
+            break
     }
 }
-const mainMenu = () => {   
+function mainMenu(){   
     onMenu = true 
     if(initialized)pause = true
-    menu.configMenu.itself.style.display = 'none'
-    menu.mainMenu.itself.style.display = 'flex'
-    menu.itself.style.display = 'flex'
+    show(MENU[INDEX.configMenu.itself],false)
+    show(MENU[INDEX.mainMenu.itself],true)
+    show(MENU[INDEX.menu],true)
 }
-const beginMatch = () => {
+function configurationMenu(){
+    onMenu = true 
+    show(MENU[INDEX.mainMenu.itself],false)
+    show(MENU[INDEX.configMenu.itself],true)
+}
+function handleChangeBtn(btn){
+    let lessBtn,
+    moreBtn,
+    quantity,
+    min,
+    max,
+    adding
+    if(btn == MENU[INDEX.configMenu.lessBalls] || btn == MENU[INDEX.configMenu.moreBalls]){
+        lessBtn = MENU[INDEX.configMenu.lessBalls],
+        quantity = MENU[INDEX.configMenu.balls],
+        moreBtn = MENU[INDEX.configMenu.moreBalls],
+        min = 1,
+        max= 100
+        adding = btn == MENU[INDEX.configMenu.moreBalls]? true : false
+    }
+    if(btn == MENU[INDEX.configMenu.lessPoints] || btn == MENU[INDEX.configMenu.morePoints]){
+        lessBtn = MENU[INDEX.configMenu.lessPoints],
+        quantity = MENU[INDEX.configMenu.winningPoints],
+        moreBtn = MENU[INDEX.configMenu.morePoints],
+        min = 1,
+        max= 100
+        adding = btn == MENU[INDEX.configMenu.morePoints]? true : false
+    }
+    modifyValue(adding,lessBtn,moreBtn,quantity,min,max)
+}
+function modifyValue(adding,lessBtn,moreBtn,quantity,min,max){
+    if(adding){
+        if(eval(quantity.innerHTML) < max )quantity.innerHTML = (eval(quantity.innerHTML) + 1).toString()
+        if(eval(quantity.innerHTML) == max) moreBtn.classList.add("disabled-btn")
+        if(eval(quantity.innerHTML) == min + 1) lessBtn.classList.remove("disabled-btn")
+    }
+    else{
+        if(eval(quantity.innerHTML) > min )quantity.innerHTML = (eval(quantity.innerHTML) - 1).toString()
+        if(eval(quantity.innerHTML) == min) lessBtn.classList.add("disabled-btn")
+        if(eval(quantity.innerHTML) == max - 1) moreBtn.classList.remove("disabled-btn")
+    }
+}    
+function beginMatch(){
     onMenu = false
     pause = false
-    ballsNumber = eval(menu.configMenu.balls.innerHTML)
-    winningPoints = eval(menu.configMenu.winningPoints.innerHTML)
-    menu.itself.style.display = 'none'
-    menu.configMenu.itself.style.display = 'none'
-    menu.mainMenu.itself.style.display = 'flex'
-    menu.mainMenu.continue.setAttribute("data-enabled","1")
-    menu.mainMenu.restart.innerHTML = "Restart"
+    ballsNumber = eval(MENU[INDEX.configMenu.balls].innerHTML)
+    winningPoints = eval(MENU[INDEX.configMenu.winningPoints].innerHTML)
+    MENU[INDEX.menu].style.display = 'none'
+    MENU[INDEX.configMenu.itself].style.display = 'none'
+    MENU[INDEX.mainMenu.itself].style.display = 'flex'
+    MENU[INDEX.mainMenu.continue].classList.remove("disabled-btn")
+    MENU[INDEX.mainMenu.restart].innerHTML = "Restart"
     start()
 }
-const continueMatch = () => {
-    if(menu.mainMenu.continue.getAttribute("data-enabled") == "1"){
+function continueMatch(){
+    if(!MENU[INDEX.mainMenu.continue].classList.contains("disabled-btn")){
         onMenu = false
         pause = false
-        menu.itself.style.display = 'none'
-        menu.configMenu.itself.style.display = 'none'
-        menu.mainMenu.itself.style.display = 'flex'
+        MENU[INDEX.menu].style.display = 'none'
+        MENU[INDEX.configMenu.itself].style.display = 'none'
+        MENU[INDEX.mainMenu.itself].style.display = 'flex'
     }
 }
