@@ -24,7 +24,7 @@ Pong Challenge was a groundbreaking project that combined the classic Pong game 
   - velY: The Y-axis velocity of the ball.
   - posX: The current X-axis position of the ball in the matrix.
   - posY: The current Y-axis position of the ball in the matrix.
-- The AI function should analyze the ball's positions and velocities and determine the optimal movement for the paddle to prevent the balls from reaching the bottom of the matrix.
+- The AI function should analyze the ball's positions and velocities and determine the optimal movement for the paddle to prevent the balls from reaching it's side of the matrix.
 - Developers can implement their AI using Vanilla JavaScript.
 ## Installation
 To set up Pong Challenge on your local machine, follow these steps:
@@ -49,7 +49,7 @@ The game loop will call your AI function on each frame with the array of Ball ob
 
 Implement your AI logic to control the paddle and respond accordingly to the ball positions.
 
-Watch your AI in action and see how long it can keep the balls from reaching the bottom!
+Watch your AI in action and see how long it can keep the balls from reaching your side of the court!
 
 ## Function Details
 Your AI function should have the following signature:
