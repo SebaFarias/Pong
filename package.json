@@ -1,7 +1,7 @@
 {
   "name": "pong",
   "version": "1.0.0",
-  "description": "Espacio para echar a volar la imaginación, probar cosas nuevas y desarrollar habilidades",
+  "description": "Pong Challenge was a groundbreaking project that combined the classic Pong game with a twist. Unlike the traditional version where you face off against one ball, in Pong Challenge, multiple balls appear on the screen, making it a thrilling and challenging experience. The aim was to create an intelligent AI function to control the paddle and prevent the balls from getting past it.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/SebaFarias/Pong.git"
   },
   "author": "Sebastian Farias B",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SebaFarias/Pong/issues"
   },
