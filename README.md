@@ -1,4 +1,5 @@
 # Pong Challenge - AI Pong Game
+![Pong Challenge Game Intro Banner](https://raw.githubusercontent.com/SebaFarias/Pong/master/imgs/Pong-Banner.jpeg)
 
 ## Overview
 Welcome to Pong Challenge, the ultimate AI Pong game designed for developers! This project was initially created to revolutionize the classic Pong experience by introducing multiple balls bouncing around in a 100x100 matrix. Developers like you were encouraged to showcase their coding skills by implementing an intelligent algorithm to control the paddle and outwit the bouncing balls.
