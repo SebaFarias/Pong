@@ -92,4 +92,4 @@ Please note that this is just a simple example to illustrate the AI logic; devel
 ## Contributing
 Although Pong Challenge is currently considered abandonware, we welcome any contributions and ideas from the developer community. If you have suggestions, bug fixes, or feature improvements, feel free to open a pull request.
 ## License
-Pong Challenge is distributed under the MIT License. You are free to use, modify, and distribute the code as per the terms of this license.
+Pong Challenge is distributed under the [MIT License](https://raw.githubusercontent.com/SebaFarias/Pong/master/LICENSE.md). You are free to use, modify, and distribute the code as per the terms of this license.
